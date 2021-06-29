@@ -30,18 +30,10 @@ server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
-wss.on('connection', (err, ws) => {
-  if (err) {
-    console.error(err)
-  } else {
-    ws.on('message', (err, message) => {
-      if (err) {
-        console.error(err)
-      } else {
-        ws.send("Hello from the server! You sent: " + message);
-      }
-    });
-  }
+wss.on('connection', ws => {
+  ws.on('message', message => {
+    ws.send("Hello from the server! You sent: " + message);
+  });
 });
 
 /**
