@@ -33,7 +33,7 @@ server.on("error", onError);
 server.on("listening", onListening);
 
 wss.on('connection', ws => {
-  ws.on('message', () => {
+  ws.on('message', (filePath) => {
     fs.watch(filePath, cb, () => {
       fs.createReadStream(filePath).on("data") = (chunk) => {
         const logsArr = chunk.toString().split("\n");
