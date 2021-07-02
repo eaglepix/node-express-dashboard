@@ -37,12 +37,10 @@ wss.on('connection', ws => {
   ws.on('message', (filePath) => {
     fs.watch(filePath, () => {
       fs.createReadStream(filePath).on("data", (chunk) => {
-        const logsArr = chunk.toString().split("\n");
+        let logsArr = chunk.toString().split("\n");
         const settings = getSettings();
         if (settings.filter) {
-          logsArr = logsArr.filter(line, () => {
-            !line.includes(settings.filter);
-          })
+          logsArr = logsArr.filter(line => !line.includes(settings.filter))
         }
         const logsStr = logsArr.reverse().join("\n");
         ws.send(logsStr);
