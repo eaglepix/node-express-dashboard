@@ -39,9 +39,9 @@ wss.on('connection', ws => {
       fs.createReadStream(filePath).on("data", (chunk) => {
         const logsArr = chunk.toString().split("\n");
         const settings = getSettings();
-        if(settings.filter){
-          logsArr = logs.filter(line, ()=>{
-            line.includes(settings.filter) === line;
+        if (settings.filter) {
+          logsArr = logsArr.filter(line, () => {
+            !line.includes(settings.filter);
           })
         }
         const logsStr = logsArr.reverse().join("\n");
