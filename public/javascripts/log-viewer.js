@@ -4,11 +4,8 @@ const logWindow = document.querySelector("#log-window");
 const filePath = document.getElementById("logFilePath").value;
 
 connection.onopen = () => {
-    if (!filePath) {
-        console.log("Invalid file path")
-    } else {
+    if (filePath) {
         connection.send(filePath);
-    }
 };
 
 connection.onmessage = (event) => {
